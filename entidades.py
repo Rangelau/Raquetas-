@@ -41,7 +41,7 @@ class Raqueta:
             self.center_y=y_max-self.h//2
 
         #estamos diciendo que si se cumple la condicion de qie center_y es mayor que y_max-restarle la altua
-        #entonces center_y llegue hasta el valor que de ymax - altura de la raqueta
+        #entonces center_y llegue hasta el valor que de ymax - alt
 
 
 #vamos a limitar la raqueta
