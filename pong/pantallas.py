@@ -28,15 +28,37 @@ class Partida:
         self.fuenteMarcador= pg.font.Font("fonts/Silkscreen",40)
         self.fuentetemporizador=pg.font.Font("fonts/Silkscreen",20)
 
-        self.colorFondo = NEGRO
+        self.contadorFotogramas = 0
+        self.fondoPantalla=NEGRO
 
+
+    
     def fijar_fondo(self):
-        if self.temporizador> PRIMER_AVISO:
-            return NEGRO
-        elif self.temporizador> SEGUNDO_AVISO:
-            return NARANJA
-        else: 
-            return ROJO
+        self.contadorFotogramas += 1
+
+        if self.temporizador > PRIMER_AVISO:
+            self.contadorFotogramas = 0
+        elif self.temporizador > SEGUNDO_AVISO:
+            # cada 10 fotogramas cambia de naranja a negro y viceversa
+            if self.contadorFotogramas == 10:
+                if self.fondoPantalla == NEGRO:
+                    self.fondoPantalla = NARANJA 
+                else:
+                    self.fondoPantalla = NEGRO
+                self.contadorFotogramas = 0
+        else:
+            # cad 5 fotogramas cambia de rojo a negro y viceversa
+            if self.contadorFotogramas >= 5: #como el >= 5 va a estar en color narajan y me lo va a poner en negro y si el negro me lo va a convertir en rojo
+                if self.fondoPantalla == NEGRO:
+                    self.fondoPantalla = ROJO
+                else:
+                    self.fondoPantalla = NEGRO
+                self.contadorFotogramas = 0
+
+
+        return self.fondoPantalla
+        
+        #cada 5 fotogramas cambia de rojo a negro y viceversa
 
     #se  le llama bucle principal porque cada vez que una persona quiera iniciar partida debe volver al inicio del juego
     def bucle_ppal(self):
@@ -86,8 +108,10 @@ class Partida:
                 
             self.bola.comprobar_choque(self.raqueta2,self.raqueta1)
  
-            colorFondo=self.fijar_fondo() # esto se hace para que pueda fijar el color, arriba con el def lo que hicimos fue crear la clase
-
+            colorFondo=self.fijar_fondo() # esto se hace para que pueda fijar el color del fondo que retorno arriba con el def lo que hicimos fue crear la clase
+            #creamos una variable color fondo que va a almacenar el color que se fijo 
+            #luego definimos el color con el fill en la pantalla  
+            #cada vez que fijamos fondo de crea un nuevo fotograma
                 
             self.pantalla_principal.fill(colorFondo)
             self.bola.dibujar(self.pantalla_principal)
