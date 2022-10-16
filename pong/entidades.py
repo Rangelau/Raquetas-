@@ -1,5 +1,6 @@
 import pygame as pg
 
+
 class Bola():       
     def __init__(self,center_x,center_y,radio=10,color=(255,255,0)):
         self.center_x=center_x
@@ -68,7 +69,15 @@ class Bola():
     
     
 class Raqueta:
+
+    #creeamos un diccionario de imagen para poder interar y decirle que imagen quiere un tomar izq o der
+
+    imagenes= {
+        "izqda":"electric00_izq.png",
+        "dercha":"electric00_der.png"
+    }
     def __init__(self,center_x,center_y,w=120,h=20,color=(255,255,0)):
+
         self.center_x=center_x
         self.center_y=center_y
         self.color= color
@@ -78,8 +87,28 @@ class Raqueta:
         self.vx=0
         self.vy=0
 
+        #self.imagen es una surfase una calcomania (podemos leerlo en la libreria pygame)
+        #el metodo load se va a la ruta que le damos y crea la surfase
+
+        self._imagen=pg.image.load(f"images/{self.imagenes['izqda']}")
+        
+    #luego que la cargamos creamos la funcion para cuando se invoque nos devuelva la imagen
+    #el property convierte la funcion en un decorador, cuando la vayamos a usar no hay que hacer def imagen sino tomamos imagen
+    @property
+    def imagen (self):
+        return self._imagen
+        
+    #ahora vamos a hacer un setter que nos va a permitir grabarle un valor a la funcion imagen ya que no queremos el que nos arroja por defecto la funcion
+
+    @imagen.setter
+    def imagen(self,valor):
+        self._imagen=pg.image.load(f"images/{self.imagenes[valor]}")
+    
     def dibujar (self,pantalla):
-        pg.draw.rect(pantalla,self.color,(self.center_x-self.w //2,self.center_y-self.h//2, self.w,self.h))
+        #pg.draw.rect(pantalla,self.color,(self.center_x-self.w //2,self.center_y-self.h//2, self.w,self.h))
+        #aqui ya no queremos que nos pinte un rectangulo de la raqueta sino que nos pinte en el lienzo la imagen que cargamos
+
+        pantalla.blit(self._imagen,(self.center_x-self.w //2,self.center_y-self.h//2))
 
 #get pressend es una funcion que en momento que se invoca va al teclado y devuelve el estado del teclado
  #devuelve false en el caso de que no se toque tecla y true en el caso de que este presionada

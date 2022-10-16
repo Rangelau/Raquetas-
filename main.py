@@ -1,13 +1,33 @@
-from pong.pantallas import Partida
+from pong.jugar import Controlador
 
-juego = Partida() 
-#aqui entra en partida lo que esta en el init- invocamos la clase
+#Aqui va a arrancar la pantalla desde el menu y partida lo hacemos que arranque desde el bucle while de menu
 
-juego.bucle_ppal() 
-#llamamos a la funcion
+juego=Controlador()
+juego.jugar()
 
 """
-AQUI ESTABAN LOS OBJETOS CREADOS, AHORA SE PASARON A PANTALLAS COMO UNA CLASE DEBIDO A QUE SIEMPRE SE VAN A USAR DENTRO DEL JUEGO
+en lugar de que uno elega si quiere poner el menu o la partida vamos
+a hacer un bucle que primero salga el menu, luego salga la partida
+y cuando se acabe la partida salga el menu.
+QUE SEA UN BUCLE INFINITO
+
+
+opcion= input("Partida o Menú (P/M)")
+if opcion.upper ()== "P": #UPPER es para pasar a mayuscula la letra p/n
+    #:abrir pygame con la partida de pong que tengamos
+    juego=Partida () #aqui llamamos a la clase partida a partir de la creación de un objeto
+    juego.bucle_ppal() #usamos la funcion bucle principal que esta en la clase para que cree la pantalla
+
+   
+elif opcion.upper()=="M":
+    # abrir el pygame con la pantalla azul(donde esta el menu)
+    juego=Menu()
+    juego.bucle_ppal()
+    
+else:
+    print ("opcion incorrecta")
+       
+#AQUI ESTABAN LOS OBJETOS CREADOS, AHORA SE PASARON A PANTALLAS COMO UNA CLASE DEBIDO A QUE SIEMPRE SE VAN A USAR DENTRO DEL JUEGO
 import pygame as pg
 from entidades import Bola,Raqueta
 pg.init()
