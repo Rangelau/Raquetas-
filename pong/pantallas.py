@@ -27,7 +27,7 @@ class Partida:
         self.raqueta1.vy=5
         
         self.raqueta2= Raqueta(ANCHO-20,ALTO//2,w=30,h=114)
-        self.raqueta2.imagen="dercha" #como es un setter lo tomo como un aributo  y le asigno un valor con el =
+        self.raqueta2.direccion="derecha" #como es un setter lo tomo como un aributo  y le asigno un valor con el =
         self.raqueta2.vy=5
 
         self.puntuacion1=0
